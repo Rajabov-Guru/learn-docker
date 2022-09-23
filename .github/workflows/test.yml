@@ -39,7 +39,7 @@ jobs:
           script: |
             cd ~/
             docker stop main
-            docker container prune
+            docker rm main
             docker image rm home-main
             rm -rf home
             git clone https://github.com/Rajabov-Guru/learn-docker.git home
