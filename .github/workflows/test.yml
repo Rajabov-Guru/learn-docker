@@ -40,6 +40,7 @@ jobs:
             cd ~/
             docker stop main
             docker container prune
+            docker image rm home-main
             rm -rf home
             git clone https://github.com/Rajabov-Guru/learn-docker.git home
             cd home
