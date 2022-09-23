@@ -26,8 +26,8 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -p ${{ secrets.PORT}} -H ${{ secrets.KNOWN_HOST }}  >> ~/.ssh/known_hosts
 
-      - name: Deploy with rsync
-        run: rsync -avz ./ ${{ secrets.USERNAME }}@${{ secrets.KNOWN_HOST }}:~/home
+      #- name: Deploy with rsync
+      #  run: rsync -avz ./ ${{ secrets.USERNAME }}@${{ secrets.KNOWN_HOST }}:~/home
 
       - name: Restart Node Server
         uses: appleboy/ssh-action@master
@@ -37,7 +37,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ~/home
+            cd ~/
             docker stop main
             docker container prune
+            rm -rf home
+            git clone https://github.com/Rajabov-Guru/learn-docker.git home
+            cd home
             docker compose up -d
